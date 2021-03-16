@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<body>
+<h1 align="center">登录</h1>
+<table align="center">
+    <tr>
+        <th>用户名：</th>
+        <td>
+            <input type="text" name="username" id="username">
+            <div id="username_err" style="color: red;"></div>
+        </td>
+
+    </tr>
+
+    <tr>
+        <th>密码：</th>
+        <td>
+            <input type="password" name="password" id="password">
+            <div id="password_err" style="color: red;"></div>
+        </td>
+
+    </tr>
+
+    <tr>
+        <th></th>
+        <td>
+            <input type="button" onclick="submit()" value="登录">
+            <div id="err" style="color: red;"></div>
+        </td>
+
+    </tr>
+</table>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    function submit() {
+        var username = $('#username').val();
+        var password = $('#password').val();
+        var flag = true;
+        if(!username){
+            $('#username_err').text('请输入用户名！');
+            flag = false
+        }
+        if (!password){
+            $('#password_err').text('请输入密码！');
+            flag = false
+        }
+        var data = {'username':username,'password':password};
+        if(flag){
+            $.ajax({
+                url: '',
+                data: data,
+                type: 'POST',
+                success: function (res) {
+                    if(res.status > 200){
+                        $('#err').text(res.errmsg);
+                    }else {
+                        location.href = '/upload/'
+                    }
+
+                },error: function (e) {
+                    console.log(e)
+                }
+            })
+        }
+        return flag
+    }
+</script>
+</body>
+</html>
